@@ -14,17 +14,17 @@ def upscale_images(input_dir, output_dir, device):
     os.makedirs(output_dir, exist_ok=True)
     model = rdn(scale=4, pretrained=True).to(device)
 
-
-    transform = transforms.Compose([
-                    transforms.Resize((256, 256)),
-                    transforms.ToTensor(),
-    ])
-
+    transform = transforms.Compose(
+        [
+            transforms.Resize((256, 256)),
+            transforms.ToTensor(),
+        ]
+    )
 
     for dir in os.listdir(input_dir):
         curr_path = os.path.join(input_dir, dir)
         curr_out_path = os.path.join(output_dir, dir)
-        
+
         os.makedirs(curr_out_path, exist_ok=True)
         for filename in tqdm(os.listdir(curr_path)[:8142], desc="Processing Images"):
             if filename.endswith(".jpg"):
@@ -46,8 +46,4 @@ if __name__ == "__main__":
 
     device = torch.device("cuda:3" if torch.cuda.is_available() else "cpu")
 
-    upscale_images(
-        "path/to/org/images", 
-        "path/to/super/res/images", 
-        device
-    )
+    upscale_images("path/to/org/images", "path/to/super/res/images", device)

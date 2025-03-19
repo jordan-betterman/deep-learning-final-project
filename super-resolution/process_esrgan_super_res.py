@@ -40,6 +40,6 @@ if __name__ == "__main__":
 
     with tf.device("/gpu:1"):
         upscale_images(
-            "path/to/org/images", 
+            "path/to/org/images",
             "path/to/super/res/images",
         )
